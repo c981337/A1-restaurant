@@ -22,7 +22,11 @@ app.get('/restaurants/:restaurant_id', (req, res) => {
 })
 //search bar
 app.get('/search', (req, res) => {
-  const restaurantFilter = restaurantList.results.filter( x => x.name.toLowerCase().includes(req.query.keyword.toLowerCase()))
+  const restaurantFilter = restaurantList.results.filter( x => 
+    {
+      if(x.name.toLowerCase().includes(req.query.keyword.toLowerCase()) || x.category.toLowerCase().includes(req.query.keyword.toLowerCase()))
+      return x
+    })
   console.log(restaurantFilter)
   res.render('index', { restaurants : restaurantFilter, keyword : req.query.keyword})
 })
